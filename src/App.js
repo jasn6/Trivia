@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import Question from "./components/Question"
+import { nanoid } from 'nanoid'
+export default function App(){
+  const [info,setInfo] = React.useState([])
+  const [allQuestions,setQuestions] = React.useState([])
 
-function App() {
+  React.useEffect(() => {
+    fetch("https://opentdb.com/api.php?amount=5")
+    .then ((res) => res.json())
+    .then((data) => setInfo(data.results));
+  }, [])
+  
+  React.useEffect(()=>{
+    for (let i = 0; i < info.length; i++){
+      let choices;
+      if (info[i].type === "boolean"){
+        choices = ["True","False"]
+      } else{
+        const multi = info[i].incorrect_answers
+        multi.push(info[i].correct_answer)
+        choices = multi
+      }
+      const newQ = {
+        id: nanoid(),
+        question: info[i].question,
+        currChoice: "",
+        choices: choices
+      }
+  
+      setQuestions(prev => [...prev,newQ])
+    }
+  },[info])
+  
+  const test = allQuestions.map(item => <div>{item.question}</div>)
+  /*
+    newQ = { 
+      id: "",
+      question: "",
+      choices: [],
+      currentQ: id,
+
+    }
+
+    click on choice button, look for which question it belongs to via Id, change current selected in newQ
+  */
+
+    /*
+  let choices;
+  if (q.type === "boolean"){
+    choices = [<button>True</button>,<button>False</button>]
+  } else{
+    const multi = q.incorrect_answers
+    multi.push(q.correct_answer)
+    choices = multi.map(item=> <button>{item}</button>)
+  }
+  */ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <div>{test}</div>
+  )
 }
-
-export default App;

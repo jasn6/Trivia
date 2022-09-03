@@ -13,13 +13,16 @@ export default function App(){
   
   React.useEffect(()=>{
     for (let i = 0; i < info.length; i++){
-      let choices;
+      let choices = [];
       if (info[i].type === "boolean"){
-        choices = ["True","False"]
+        choices = [{choice: "True", id: nanoid()},{choice: "False", id: nanoid()}]
       } else{
         const multi = info[i].incorrect_answers
         multi.push(info[i].correct_answer)
-        choices = multi
+        for (let i = 0; i < multi.length; i++){
+          choices.push({choice: multi[i], id: nanoid()} )
+        }
+        
       }
       const newQ = {
         id: nanoid(),
@@ -29,10 +32,14 @@ export default function App(){
       }
   
       setQuestions(prev => [...prev,newQ])
+
     }
+
   },[info])
   
-  const test = allQuestions.map(item => <div>{item.question}</div>)
+
+
+  const test = allQuestions.map(item => <Question setQuestions = {setQuestions} content = {item}/>)
   /*
     newQ = { 
       id: "",
@@ -56,6 +63,10 @@ export default function App(){
   }
   */ 
   return (
-    <div>{test}</div>
+    <div>
+      <div>{test}</div>
+      <div>Hello World</div>
+    </div>
+    
   )
 }

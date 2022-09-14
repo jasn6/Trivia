@@ -1,14 +1,17 @@
 import React from "react"
 import Quiz from "./components/Quiz"
+import StartScreen from "./components/StartScreen"
 import { nanoid } from 'nanoid'
 import he from "he";
+import "./index.css"
+
 export default function App(){
   const [startScreen,setStart] = React.useState(true)
   const [answerScreen,setAnswers] = React.useState(false)
   const [info,setInfo] = React.useState([])
   const [allQuestions,setQuestions] = React.useState([])
   const [playAgain, setPlayAgain] = React.useState(true)
-  const [correct, setCorrect] = React.useState(0)
+  const [notFinish, setNotFinish] = React.useState(false)
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5")
@@ -62,11 +65,12 @@ export default function App(){
 
   return (
     <div>
-      {startScreen ? <button onClick={start}>Start</button> : <div><Quiz allQuestions = {allQuestions} setQuestions = {setQuestions} 
-      setAnswers = {setAnswers} results = {answerScreen} setPlayAgain = {setPlayAgain} 
-      correct = {correct} setCorrect = {setCorrect}
+      {startScreen ? <StartScreen start = {start}/>
+      : 
+      <div><Quiz allQuestions = {allQuestions} setQuestions = {setQuestions} 
+      setAnswers = {setAnswers} results = {answerScreen} setPlayAgain = {setPlayAgain}
+      notFinish = {notFinish} setNotFinish = {setNotFinish}
       /></div>}
-    
     </div>
     
   )

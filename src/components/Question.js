@@ -21,11 +21,11 @@ export default function Question({content,setQuestions,results}){
     })
   }
   const style2 = {
-    backgroundColor: "blue"
+    backgroundColor: "#92A8D1"
   }
 
   const style1 = {
-    backgroundColor: "gray"
+    backgroundColor: "#deeaee"
   }
   
   let choices;
@@ -35,16 +35,16 @@ export default function Question({content,setQuestions,results}){
   choices =  content.choices.map(item => {
     let style;
     if (item.id === content.correct){
-       style = {backgroundColor:"green"}
+       style = {backgroundColor:"#b5e7a0"}
     }else if (item.id === content.currChoice){
-      style = {backgroundColor:"red"}
+      style = {backgroundColor:"#F7CAC9"}
     }
     else{
-      style = {backgroundColor:"gray"}
+      style = {backgroundColor: "#deeaee"}
     }
     
     return (
-      <button style = {style}
+      <button className = "choice" style = {style}
       key = {item.id} id = {item.id} >{item.choice}
       </button>
     )
@@ -52,15 +52,22 @@ export default function Question({content,setQuestions,results}){
 
   :
 
-  choices = content.choices.map(item => <button style = {item.id === content.currChoice ? style2 : style1} 
+  choices = content.choices.map(item => <button className = "choice" 
+    style = {item.id === content.currChoice ? style2 : style1} 
     key = {item.id} id = {item.id} onClick={handleClick} >{item.choice}</button>)
 
 
 
   return (
-    <div>
+    <div className="question">
       <p>{content.question}</p>
-      <div>{choices}</div>
+      <div className="choicesContainer">{choices}</div>
+      <hr className="line"
+         style={{
+          borderBottomColor: 'black',
+          borderBottomWidth: 1,
+         }}
+      />
     </div>
   )
 }

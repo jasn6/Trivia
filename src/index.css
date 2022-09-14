@@ -1,0 +1,128 @@
+body{
+  background-color: #b0aac0;
+}
+
+p{
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+
+.question{
+  color:black;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family:  'Architects Daughter';
+  font-size: 25px;
+
+}
+.choicesContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.choice{
+  color: black;
+  font-family: 'Source Code Pro';
+  border: none;
+  margin-right: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s, opacity 0.2s;
+  font-size: 15px;
+  padding: 8px 15px;
+}
+
+.line{
+  width: 500px;
+  background-color: "#fefbd8";
+}
+
+.quizPage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Title{
+  display: flex;
+  font-family: 'Architects Daughter';
+  font-size: 100px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title2{
+  font-family: 'Rampart One';
+  font-size: 50px;
+  color: #454140;
+}
+
+.start{
+  font-size: 50px;
+  font-family: 'Architects Daughter';
+  cursor: pointer;
+  border: none;
+  background-color: #b0aac0;
+  transition: color 0.25s;
+}
+
+.start:hover {
+  color: white;
+
+}
+
+.Logo{
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+  margin-bottom: 50px;
+}
+
+.logo, .logo2{
+  width: 400px;
+  height: 400px;
+  opacity: 0.3;
+}
+
+.check{
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-family: 'Source Code Pro';
+  font-size: 25px;
+  cursor: pointer;
+  transition: opacity 0.25s;
+}
+
+.check:hover{
+  opacity: 0.6;
+}
+
+.errorCheck{
+  font-family: 'Architects Daughter';
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.Score{
+  font-family: 'Source Code Pro';
+  font-size: 20px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.backGround{
+  position: absolute;
+  z-index: -1;
+  bottom: 0px;
+  right: 0px;
+}
+
+.backGround2{
+  position: absolute;
+  z-index: -1;
+  bottom: 0px;
+  left: 0px;
+}

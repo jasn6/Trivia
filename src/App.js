@@ -1,71 +1,72 @@
 import React from "react"
-import Question from "./components/Question"
+import Quiz from "./components/Quiz"
 import { nanoid } from 'nanoid'
+import he from "he";
 export default function App(){
+  const [startScreen,setStart] = React.useState(true)
+  const [answerScreen,setAnswers] = React.useState(false)
   const [info,setInfo] = React.useState([])
   const [allQuestions,setQuestions] = React.useState([])
+  const [playAgain, setPlayAgain] = React.useState(true)
+  const [correct, setCorrect] = React.useState(0)
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5")
     .then ((res) => res.json())
     .then((data) => setInfo(data.results));
-  }, [])
+  }, [playAgain])
   
   React.useEffect(()=>{
+    setQuestions([])
     for (let i = 0; i < info.length; i++){
       let choices = [];
+      let correct_answer;
       if (info[i].type === "boolean"){
         choices = [{choice: "True", id: nanoid()},{choice: "False", id: nanoid()}]
+        if (info[i].correct_answer === "True"){
+          correct_answer = choices[0].id
+        }else{
+          correct_answer = choices[1].id
+        }
       } else{
-        const multi = info[i].incorrect_answers
-        multi.push(info[i].correct_answer)
-        for (let i = 0; i < multi.length; i++){
-          choices.push({choice: multi[i], id: nanoid()} )
+        const random = Math.floor(Math.random() * 4);
+        let currWrong = 0;
+        for (let n = 0; n < 4; n++){
+          if (n === random){
+            choices[n] = {choice: he.decode(info[i].correct_answer), id: nanoid()}
+            correct_answer = choices[n].id
+            continue
+          }
+          choices[n] = ({choice: he.decode(info[i].incorrect_answers[currWrong]), id: nanoid()} )
+          currWrong++;
         }
         
       }
       const newQ = {
         id: nanoid(),
-        question: info[i].question,
+        question: he.decode(info[i].question),
         currChoice: "",
-        choices: choices
+        choices: choices,
+        correct: correct_answer
       }
   
       setQuestions(prev => [...prev,newQ])
 
     }
-
+    
   },[info])
   
+  const start = () => setStart(false)
 
+  
 
-  const test = allQuestions.map(item => <Question setQuestions = {setQuestions} content = {item}/>)
-  /*
-    newQ = { 
-      id: "",
-      question: "",
-      choices: [],
-      currentQ: id,
-
-    }
-
-    click on choice button, look for which question it belongs to via Id, change current selected in newQ
-  */
-
-    /*
-  let choices;
-  if (q.type === "boolean"){
-    choices = [<button>True</button>,<button>False</button>]
-  } else{
-    const multi = q.incorrect_answers
-    multi.push(q.correct_answer)
-    choices = multi.map(item=> <button>{item}</button>)
-  }
-  */ 
   return (
     <div>
-      <div>{test}</div>
-      <div>Hello World</div>
+      {startScreen ? <button onClick={start}>Start</button> : <div><Quiz allQuestions = {allQuestions} setQuestions = {setQuestions} 
+      setAnswers = {setAnswers} results = {answerScreen} setPlayAgain = {setPlayAgain} 
+      correct = {correct} setCorrect = {setCorrect}
+      /></div>}
+    
     </div>
     
   )

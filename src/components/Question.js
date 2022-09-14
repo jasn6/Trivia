@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function Question({content,setQuestions}){
+export default function Question({content,setQuestions,results}){
   const handleClick = (e) => {
     setQuestions(prev => {
       const newArray = []
@@ -11,7 +11,7 @@ export default function Question({content,setQuestions}){
             ...oldQ,
             currChoice: e.target.id
           })
-          
+
         }else{
           newArray.push(oldQ)
         }
@@ -28,14 +28,38 @@ export default function Question({content,setQuestions}){
     backgroundColor: "gray"
   }
   
-  
+  let choices;
 
-  const choices = content.choices.map(item => <button style = {item.id === content.currChoice ? style2 : style1} 
-    id = {item.id} onClick={handleClick} >{item.choice}</button>)
+  results ? 
+
+  choices =  content.choices.map(item => {
+    let style;
+    if (item.id === content.correct){
+       style = {backgroundColor:"green"}
+    }else if (item.id === content.currChoice){
+      style = {backgroundColor:"red"}
+    }
+    else{
+      style = {backgroundColor:"gray"}
+    }
+    
+    return (
+      <button style = {style}
+      key = {item.id} id = {item.id} >{item.choice}
+      </button>
+    )
+  })
+
+  :
+
+  choices = content.choices.map(item => <button style = {item.id === content.currChoice ? style2 : style1} 
+    key = {item.id} id = {item.id} onClick={handleClick} >{item.choice}</button>)
+
+
 
   return (
     <div>
-      <div>{content.question}</div>
+      <p>{content.question}</p>
       <div>{choices}</div>
     </div>
   )

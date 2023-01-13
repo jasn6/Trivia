@@ -106,7 +106,7 @@ export default function App() {
       <nav>
         <ul>
           <li>
-            <a href="/">Home</a>
+            <a href="/Trivia/">Home</a>
           </li>
           <li>
             <a href="https://opentdb.com/">Database</a>

@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Trivia/static/css/main.435a284c.css",
-    "main.js": "/Trivia/static/js/main.9007b81d.js",
+    "main.js": "/Trivia/static/js/main.cfa5fce8.js",
     "static/media/logo.png": "/Trivia/static/media/logo.059622de4b8e8cc1dd53.png",
     "static/media/thinking.png": "/Trivia/static/media/thinking.c5d17019b2759701b201.png",
     "static/media/thinking2.png": "/Trivia/static/media/thinking2.2150cc9740e6db23c53b.png",
     "index.html": "/Trivia/index.html",
     "main.435a284c.css.map": "/Trivia/static/css/main.435a284c.css.map",
-    "main.9007b81d.js.map": "/Trivia/static/js/main.9007b81d.js.map"
+    "main.cfa5fce8.js.map": "/Trivia/static/js/main.cfa5fce8.js.map"
   },
   "entrypoints": [
     "static/css/main.435a284c.css",
-    "static/js/main.9007b81d.js"
+    "static/js/main.cfa5fce8.js"
   ]
 }

@@ -1,77 +1,122 @@
-import React from "react"
-import Quiz from "./components/Quiz"
-import StartScreen from "./components/StartScreen"
-import { nanoid } from 'nanoid'
-import he from "he";
-import "./index.css"
+import React from "react";
+import Main from "./components/Main";
+import { Button, Grid, Typography, MenuItem, FormControl } from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import "./index.css";
+import logo from "./Images/logo.png";
 
-export default function App(){
-  const [startScreen,setStart] = React.useState(true)
-  const [answerScreen,setAnswers] = React.useState(false)
-  const [info,setInfo] = React.useState([])
-  const [allQuestions,setQuestions] = React.useState([])
-  const [playAgain, setPlayAgain] = React.useState(true)
-  const [notFinish, setNotFinish] = React.useState(false)
+export default function App() {
+  const [start, setStart] = React.useState(true);
+  const [categories, setCategories] = React.useState();
+  const [difficulty, setDifficulty] = React.useState("");
+  const [category, setCategory] = React.useState("");
+
+  const handleCategory = (event: SelectChangeEvent) => {
+    setCategory(event.target.value);
+  };
+
+  const handleDifficulty = (event: SelectChangeEvent) => {
+    setDifficulty(event.target.value);
+  };
+
+  const handleStart = () => {
+    setStart((prev) => !prev);
+  };
 
   React.useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=5")
-    .then ((res) => res.json())
-    .then((data) => setInfo(data.results));
-  }, [playAgain])
-  
-  React.useEffect(()=>{
-    setQuestions([])
-    for (let i = 0; i < info.length; i++){
-      let choices = [];
-      let correct_answer;
-      if (info[i].type === "boolean"){
-        choices = [{choice: "True", id: nanoid()},{choice: "False", id: nanoid()}]
-        if (info[i].correct_answer === "True"){
-          correct_answer = choices[0].id
-        }else{
-          correct_answer = choices[1].id
-        }
-      } else{
-        const random = Math.floor(Math.random() * 4);
-        let currWrong = 0;
-        for (let n = 0; n < 4; n++){
-          if (n === random){
-            choices[n] = {choice: he.decode(info[i].correct_answer), id: nanoid()}
-            correct_answer = choices[n].id
-            continue
-          }
-          choices[n] = ({choice: he.decode(info[i].incorrect_answers[currWrong]), id: nanoid()} )
-          currWrong++;
-        }
-        
-      }
-      const newQ = {
-        id: nanoid(),
-        question: he.decode(info[i].question),
-        currChoice: "",
-        choices: choices,
-        correct: correct_answer
-      }
-  
-      setQuestions(prev => [...prev,newQ])
+    fetch("https://opentdb.com/api_category.php")
+      .then((res) => res.json())
+      .then((data) => setCategories(data.trivia_categories));
+  }, []);
 
-    }
-    
-  },[info])
-  
-  const start = () => setStart(false)
+  const startScreen = () => {
+    return (
+      <>
+        <div className="startScreenLogo">
+          <img className="ssLogo" src={logo} alt="Person thinking" />
+        </div>
 
-  
+        <div className="startpageContainer">
+          <div className="Title">Welcome To Trivia !</div>
+          <div className="selections">
+            <Grid container spacing={1}>
+              {categories && (
+                <Grid item xs={12}>
+                  <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <Typography variant="h5">CATEGORY</Typography>
+                    <Select
+                      autoWidth
+                      value={category}
+                      displayEmpty
+                      onChange={handleCategory}
+                    >
+                      <MenuItem value="">
+                        <em>Random</em>
+                      </MenuItem>
+                      {categories.map((item) => (
+                        <MenuItem
+                          key={item.id}
+                          value={item.id + "-" + item.name}
+                        >
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              )}
+
+              <Grid item xs={12}>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                  <Typography variant="h5">DIFFICULTY</Typography>
+                  <Select
+                    displayEmpty
+                    autoWidth
+                    value={difficulty}
+                    onChange={handleDifficulty}
+                  >
+                    <MenuItem value="">
+                      <em>Random</em>
+                    </MenuItem>
+                    <MenuItem value={"easy"}>Easy</MenuItem>
+                    <MenuItem value={"medium"}>Medium</MenuItem>
+                    <MenuItem value={"hard"}>Hard</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  sx={{ ml: 1 }}
+                  variant="contained"
+                  onClick={handleStart}
+                  size="large"
+                >
+                  Start
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
+        </div>
+      </>
+    );
+  };
 
   return (
-    <div>
-      {startScreen ? <StartScreen start = {start}/>
-      : 
-      <div><Quiz allQuestions = {allQuestions} setQuestions = {setQuestions} 
-      setAnswers = {setAnswers} results = {answerScreen} setPlayAgain = {setPlayAgain}
-      notFinish = {notFinish} setNotFinish = {setNotFinish}
-      /></div>}
-    </div>
-    
-  )
+    <>
+      <nav>
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="https://opentdb.com/">Database</a>
+          </li>
+          <li>
+            <a href="https://github.com/jasn6/Trivia">Github</a>
+          </li>
+        </ul>
+      </nav>
+      {start ? startScreen() : <Main diff={difficulty} cat={category} />}
+    </>
+  );
 }

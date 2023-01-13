@@ -1,30 +1,30 @@
-body{
+body {
   background-color: #b0aac0;
+  padding: 0;
+  margin: 0;
 }
 
-p{
+p {
   margin: 0;
   margin-bottom: 15px;
 }
 
-
-.question{
-  color:black;
+.question {
+  color: black;
   display: flex;
   flex-direction: column;
   text-align: center;
-  font-family:  'Architects Daughter';
+  font-family: "Architects Daughter";
   font-size: 25px;
-
 }
-.choicesContainer{
+.choicesContainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.choice{
+.choice {
   color: black;
-  font-family: 'Source Code Pro';
+  font-family: "Source Code Pro";
   border: none;
   margin-right: 15px;
   cursor: pointer;
@@ -34,95 +34,144 @@ p{
   padding: 8px 15px;
 }
 
-.line{
+.line {
   width: 500px;
   background-color: "#fefbd8";
 }
 
-.quizPage{
+.quizPage {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.Title{
-  display: flex;
-  font-family: 'Architects Daughter';
-  font-size: 100px;
-  flex-direction: column;
-  align-items: center;
-}
-
-.title2{
-  font-family: 'Rampart One';
+.title2 {
+  font-family: "Rampart One";
   font-size: 50px;
   color: #454140;
 }
 
-.start{
-  font-size: 50px;
-  font-family: 'Architects Daughter';
-  cursor: pointer;
-  border: none;
-  background-color: #b0aac0;
-  transition: color 0.25s;
+.Title {
+  font-family: "Rampart One";
+  font-size: 60px;
+  color: #454140;
 }
 
-.start:hover {
-  color: white;
-
+.startpageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 180px;
+  margin-left: 120px;
 }
 
-.Logo{
+.Logo {
   width: 500px;
   height: 500px;
   object-fit: cover;
   margin-bottom: 50px;
 }
 
-.logo, .logo2{
+.logo,
+.logo2 {
   width: 400px;
   height: 400px;
   opacity: 0.3;
 }
 
-.check{
+.check {
   border: none;
   border-radius: 10px;
   padding: 10px 20px;
-  font-family: 'Source Code Pro';
+  font-family: "Source Code Pro";
   font-size: 25px;
   cursor: pointer;
   transition: opacity 0.25s;
 }
 
-.check:hover{
+.check:hover {
   opacity: 0.6;
 }
 
-.errorCheck{
-  font-family: 'Architects Daughter';
-  margin-top: 20px;
-  font-size: 20px;
-}
-
-.Score{
-  font-family: 'Source Code Pro';
+.Score {
+  font-family: "Source Code Pro";
   font-size: 20px;
   color: white;
   margin-bottom: 15px;
 }
 
-.backGround{
+.backGround {
   position: absolute;
   z-index: -1;
   bottom: 0px;
   right: 0px;
 }
 
-.backGround2{
+.backGround2 {
   position: absolute;
   z-index: -1;
   bottom: 0px;
   left: 0px;
+}
+
+.startScreenLogo {
+  position: absolute;
+  z-index: -1;
+  bottom: 0px;
+  right: 0px;
+}
+
+.ssLogo {
+  width: 700px;
+  height: 700px;
+}
+
+.back {
+  background-color: #cd5c5c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-family: "Source Code Pro";
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 0.25s;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
+nav {
+  background-color: #c6d5e0;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+nav li {
+  float: left;
+}
+
+nav a {
+  display: block;
+  letter-spacing: 3px;
+  font-family: Source Code Pro;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: #a6b5c5;
+}
+
+.descrip {
+  font-family: Source Code Pro;
+  letter-spacing: 3px;
+  color: #006400;
 }
